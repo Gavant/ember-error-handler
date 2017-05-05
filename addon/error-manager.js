@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {EmberErrorHandlerError} from './errors';
+import {EmberErrorLoggerError} from './errors';
 import BaseConsumer from './consumer/base-consumer';
 import BaseListener from './listener/base-listener';
 import ErrorDescriptor from './error-descriptor';
@@ -13,7 +13,6 @@ export default Ember.Service.extend(
         enabled: computed(
             'environment',
             function () {
-                return true;
                 return this.get('environment') !== 'test';
             }
         ),
@@ -21,16 +20,16 @@ export default Ember.Service.extend(
         consumerKeys: computed(function () {
             const configured = this.get('config')['consumers'];
             return configured || [
-                    'service:ember-error-handler/consumer/wsod-consumer',
-                    'service:ember-error-handler/consumer/console-consumer'
+                    'service:ember-error-logger/consumer/wsod-consumer',
+                    'service:ember-error-logger/consumer/console-consumer'
                 ]
         }),
 
         listenerKeys: computed(function () {
             const configured = this.get('config')['listeners'];
             return configured || [
-                   'service:ember-error-handler/listener/window-listener',
-                   'service:ember-error-handler/listener/ember-listener'
+                   'service:ember-error-logger/listener/window-listener',
+                   'service:ember-error-logger/listener/ember-listener'
                 ]
         }),
 
@@ -44,7 +43,7 @@ export default Ember.Service.extend(
                 this.get('listenerKeys').forEach((listener) => {
                     const instance = owner.lookup(listener);
                     if (!instance || !(instance instanceof BaseListener)) {
-                        throw new EmberErrorHandlerError(`Lookup of listener '${listener}' failed`);
+                        throw new EmberErrorLoggerError(`Lookup of listener '${listener}' failed`);
                     }
                     listeners.push(instance);
                 });
@@ -59,7 +58,7 @@ export default Ember.Service.extend(
                 this.get('consumerKeys').forEach((consumer) => {
                     const instance = owner.lookup(consumer);
                     if (!instance || !(instance instanceof BaseConsumer)) {
-                        throw new EmberErrorHandlerError(`Lookup of consumer '${consumer}' failed`);
+                        throw new EmberErrorLoggerError(`Lookup of consumer '${consumer}' failed`);
                     }
                     consumers.push(instance);
                 });
@@ -77,7 +76,7 @@ export default Ember.Service.extend(
             } catch (e) {
                 this.logInternalError(
                     this,
-                    new EmberErrorHandlerError('Listeners initialization failed').withPreviousError(e)
+                    new EmberErrorLoggerError('Listeners initialization failed').withPreviousError(e)
                 );
             }
 
@@ -110,22 +109,21 @@ export default Ember.Service.extend(
                         } catch (e) {
                             this.logInternalError(
                                 this,
-                                new EmberErrorHandlerError(`Consumer ${consumer._debugContainerKey} failed`).withPreviousError(e)
+                                new EmberErrorLoggerError(`Consumer ${consumer._debugContainerKey} failed`).withPreviousError(e)
                             );
                         }
                     });
                 } else {
-                    throw new EmberErrorHandlerError('Already consumed')
+                    throw new EmberErrorLoggerError('Already consumed')
                         .withPreviousError(descriptor.get('error'));
                 }
             } catch (e) {
                 this.logInternalError(
                     this,
-                    new EmberErrorHandlerError('Error consumation failed')
+                    new EmberErrorLoggerError('Error consumation failed')
                         .withPreviousError(e)
                 );
             }
         }
 
     });
-

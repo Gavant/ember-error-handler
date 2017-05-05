@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import layout from '../../templates/components/ember-error-handler/wsod-screen-development';
+import layout from '../../templates/components/ember-error-logger/wsod-screen-development';
 const {computed} = Ember;
 
 export default Ember.Component.extend({

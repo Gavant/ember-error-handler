@@ -5,10 +5,10 @@ export default Ember.Service.extend({
     log(context, error) {
         if (error) {
             //eslint-disable-next-line no-console
-            console.error('ember-error-handler:', error.stack);
+            console.error('ember-error-logger:', error.stack);
         } else {
             //eslint-disable-next-line no-console
-            console.error('ember-error-handler:', 'Failed with undefined error');
+            console.error('ember-error-logger:', 'Failed with undefined error');
         }
     }
 

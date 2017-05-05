@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-error-handler'
+  name: 'ember-error-logger'
 };

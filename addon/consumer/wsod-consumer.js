@@ -11,7 +11,7 @@ export default BaseConsumer.extend({
   'component-development': computed(function () {
     let component = this.get('config')['wsod-component-development'];
     if (!component) {
-      component = 'ember-error-handler/wsod-screen-development';
+      component = 'ember-error-logger/wsod-screen-development';
     }
     return component;
 
@@ -20,7 +20,7 @@ export default BaseConsumer.extend({
   'component-production': computed(function () {
     let component = this.get('config')['wsod-component-production'];
     if (!component) {
-      component = 'ember-error-handler/wsod-screen-production';
+      component = 'ember-error-logger/wsod-screen-production';
     }
     return component;
 

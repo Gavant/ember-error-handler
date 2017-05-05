@@ -17,23 +17,6 @@ export default BaseListener.extend({
         const owner = Ember.getOwner(this);
         const listener = this;
 
-        //Capturing errors within action events
-        Ember.ActionHandler.reopen({
-            send: function (actionName) {
-                try {
-                    this._super.apply(this, arguments);
-                } catch (error) {
-                    manager.consume(
-                        ErrorDescriptor.create({
-                            source: `ember-action:${actionName}`,
-                            listener: listener,
-                            error
-                        })
-                    );
-                }
-            }
-        });
-
         //Capturing errors during transitions
         const ApplicationRoute = owner.lookup('route:application');
         ApplicationRoute.reopen({
