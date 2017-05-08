@@ -43,6 +43,7 @@
     "exception"
   ],
   "dependencies": {
+    "ember-ajax": "^2.0.1",
     "ember-types": "^0.2.0",
     "ember-exex": "^0.1.11",
     "ember-cli-htmlbars": "^1.1.1",
