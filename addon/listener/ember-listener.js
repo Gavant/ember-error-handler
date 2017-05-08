@@ -30,8 +30,7 @@ export default BaseListener.extend({
                         })
                     );
 
-                    //allow errors to bubble so error substate routes can be shown
-                    return true;
+                    return this._super(...arguments);
                 }
             }
         });
