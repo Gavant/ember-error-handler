@@ -91,9 +91,11 @@ if (environment === 'production') {
 }
 ```
 
-To format api error payload data (from addons like ember-data and ember-ajax) so that it is readable in the error description (instead of just being logged as `[object Object]`), you can use the `ember-error-logger/mixins/api-error-logging` mixin in your Ember Data adapter and/or ajax service. This mixin will stringify the payload data if it is not already in a string format.
-
 **IMPORTANT** The api-consumer uses ember-ajax to make the AJAX request. If you have extended the service with a custom host, you may need to adjust the `logErrorsEndpoint` accordingly.
+
+### Handling all API related errors
+
+Some API request errors may not be handled/logged by default (for example, if they are not triggered by a route transition). To log these errors, use the `ember-error-logger/mixins/log-api-errors` mixin in your ember-data adapter and/or ajax service. Additionally, these mixin will also stringify response payloads so that they can read in the error message (instead of just displaying as `[object Object]`).
 
 
 ## Extendability
