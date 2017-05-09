@@ -2,6 +2,7 @@ import Ember from 'ember';
 import BaseConsumer from './base-consumer';
 
 const {
+    assert,
     getOwner,
     get,
     isEmpty,
@@ -18,9 +19,8 @@ export default BaseConsumer.extend({
         const req = get(this, 'fastboot.request');
         const endpoint = get(this, 'endpoint');
 
-        if(!ajax || isEmpty(endpoint)) {
-            return false;
-        }
+        assert('Must provide an endpoint url in ember-error-logger.consumers.api-consumer.endpoint config to use the api-consumer', !isEmpty(endpoint));
+        assert('Must install ember-ajax to use the api-consumer', ajax);
 
         try {
             await ajax.request(endpoint, {
