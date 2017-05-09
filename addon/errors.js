@@ -1,6 +1,6 @@
 import {defineError} from 'ember-exex/error';
 
-export const EmberErrorHandlerError = defineError({
-    name: 'ErrorHandlerError',
-    message: 'Error in ember-error-handler'
+export const EmberErrorLoggerError = defineError({
+    name: 'ErrorLoggerError',
+    message: 'Error in ember-error-logger'
 });

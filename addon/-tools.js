@@ -1,8 +1,12 @@
 import Ember from 'ember';
-const {getOwner, computed} = Ember;
+const {
+    get,
+    getOwner,
+    computed
+} = Ember;
 
 export const getConfig = (instance) => {
-    return getOwner(instance).resolveRegistration('config:environment')['ember-error-handler'] || {};
+    return getOwner(instance).resolveRegistration('config:environment')['ember-error-logger'] || {};
 };
 
 export const getEnvironment = (instance) => {
@@ -20,11 +24,11 @@ export const ConfigMixin = Ember.Mixin.create({
 });
 
 export const InternalErrorManagmentMixin = Ember.Mixin.create({
-
-    internalLogger: Ember.inject.service('ember-error-handler.logger.internal-logger'),
+    internalLogger: computed(function() {
+        return getOwner(this).lookup('error-logger:internal-logger');
+    }),
 
     logInternalError(context, error) {
-        this.get('internalLogger').log(context, error)
+        get(this, 'internalLogger').log(context, error)
     }
 });
-
