@@ -1,7 +1,7 @@
 {
   "name": "ember-error-logger",
-  "version": "0.1.13",
-  "description": "Addon handles uncatched errors. Handled error can be displayed on customizable error page or passed through custom logic. By default addon includes consumers for local and remote logging of errors.",
+  "version": "0.0.1",
+  "description": "Ember addon for handling and logging uncaught application errors",
   "directories": {
     "doc": "doc",
     "test": "tests"
