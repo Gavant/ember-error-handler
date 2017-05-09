@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const {
+    get,
     canInvoke,
     inject: { service }
 } = Ember;
@@ -17,7 +18,7 @@ export default Ember.Mixin.create({
 
         //provide a more detailed message (request/response info, ect) for ALL error types
         result.message = this.formatErrorMessage(result, status, headers, payload, requestData);
-        this.get('errorManager').consume(result);
+        get(this, 'errorManager').consume(result);
 
         return result;
     },

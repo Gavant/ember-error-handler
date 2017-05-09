@@ -17,9 +17,9 @@ export default BaseListener.extend({
     },
 
     listenerConfig: computed('config.listeners.ember-listener', function() {
-        const configured = this.get('config.listeners.ember-listener');
+        const configured = get(this, 'config.listeners.ember-listener');
 
-        if(configured === true) {
+        if(!configured || configured === true) {
             return {
                 ember: true,
                 transitions: true,
@@ -32,7 +32,7 @@ export default BaseListener.extend({
     }),
 
     listen(manager) {
-        const config = this.get('listenerConfig');
+        const config = get(this, 'listenerConfig');
         const owner = getOwner(this);
         const listener = this;
 

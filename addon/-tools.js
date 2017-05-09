@@ -1,5 +1,9 @@
 import Ember from 'ember';
-const {getOwner, computed} = Ember;
+const {
+    get,
+    getOwner,
+    computed
+} = Ember;
 
 export const getConfig = (instance) => {
     return getOwner(instance).resolveRegistration('config:environment')['ember-error-logger'] || {};
@@ -21,11 +25,10 @@ export const ConfigMixin = Ember.Mixin.create({
 
 export const InternalErrorManagmentMixin = Ember.Mixin.create({
     internalLogger: computed(function() {
-        const owner = getOwner(this);
-        return owner.lookup('error-logger:internal-logger');
+        return getOwner(this).lookup('error-logger:internal-logger');
     }),
 
     logInternalError(context, error) {
-        this.get('internalLogger').log(context, error)
+        get(this, 'internalLogger').log(context, error)
     }
 });

@@ -1,14 +1,17 @@
+import Ember from 'ember';
 import BaseConsumer from './base-consumer';
+
+const { get } = Ember;
 
 export default BaseConsumer.extend({
     consume (descriptor) {
         // eslint-disable-next-line no-console
         console.error(
-            descriptor.get('source'),
-            descriptor.get('isError') ? descriptor.get('plainText') : descriptor.get('error')
+            get(descriptor, 'source'),
+            get(descriptor, 'isError') ? get(descriptor, 'plainText') : get(descriptor, 'error')
         );
 
-        const additionalData = descriptor.get('additionalData');
+        const additionalData = get(descriptor, 'additionalData');
         if (additionalData) {
             // eslint-disable-next-line no-console
             console.warn('Additional data', additionalData);

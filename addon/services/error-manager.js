@@ -1,11 +1,12 @@
 import Ember from 'ember';
 import {EmberErrorLoggerError} from '../errors';
 import BaseConsumer from '../error-consumers/base-consumer';
-import BaseListener from '.,/error-listeners/base-listener';
+import BaseListener from '../error-listeners/base-listener';
 import ErrorDescriptor from '../error-descriptor';
 import {ConfigMixin, InternalErrorManagmentMixin} from '../-tools';
 
 const {
+    get,
     computed,
     getOwner,
     isNone
@@ -15,12 +16,12 @@ export default Ember.Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
     consumed: computed(() => []),
 
     enabled: computed('environment', function () {
-        return this.get('environment') !== 'test';
+        return get(this, 'environment') !== 'test';
     }),
 
     consumerConfigs: computed('environment', function () {
-        const env = this.get('environment');
-        const configured = this.get('config')['consumers'];
+        const env = get(this, 'environment');
+        const configured = get(this, 'config')['consumers'];
 
         if(!isNone(configured)) {
             return configured;
@@ -32,7 +33,7 @@ export default Ember.Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
     }),
 
     listenerConfigs: computed(function () {
-        const configured = this.get('config')['listeners'];
+        const configured = get(this, 'config')['listeners'];
 
         if(!isNone(configured)) {
             return configured;
@@ -46,7 +47,7 @@ export default Ember.Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
 
     listeners: computed('listenerConfigs.[]', function () {
         const owner = getOwner(this);
-        const configs = this.get('listenerConfigs');
+        const configs = get(this, 'listenerConfigs');
         const listeners = [];
 
         for(let key in configs) {
@@ -65,7 +66,7 @@ export default Ember.Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
 
     consumers: computed('consumerConfigs.[]', function () {
         const owner = getOwner(this);
-        const configs = this.get('consumerConfigs');
+        const configs = get(this, 'consumerConfigs');
         const consumers = [];
 
         for(let key in configs) {
@@ -84,8 +85,8 @@ export default Ember.Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
 
     listen() {
         try {
-            if (this.get('enabled')) {
-                this.get('listeners').forEach((listener) => {
+            if (get(this, 'enabled')) {
+                get(this, 'listeners').forEach((listener) => {
                     listener.listen(this);
                 })
             }
@@ -99,7 +100,7 @@ export default Ember.Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
     },
 
     isConsumed(descriptor) {
-        return this.get('consumed').indexOf(descriptor.get('error')) !== -1;
+        return get(this, 'consumed').indexOf(get(descriptor, 'error')) !== -1;
     },
 
     consume(descriptor) {
@@ -114,9 +115,9 @@ export default Ember.Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
 
         try {
             if (!this.isConsumed(descriptor)) {
-                this.get('consumed').pushObject(descriptor.get('error'));
+                get(this, 'consumed').pushObject(get(descriptor, 'error'));
 
-                this.get('consumers').some((consumer) => {
+                get(this, 'consumers').some((consumer) => {
                     try {
                         return !consumer.consume(descriptor);
                     } catch (e) {
