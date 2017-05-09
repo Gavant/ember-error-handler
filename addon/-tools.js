@@ -20,8 +20,10 @@ export const ConfigMixin = Ember.Mixin.create({
 });
 
 export const InternalErrorManagmentMixin = Ember.Mixin.create({
-
-    internalLogger: Ember.inject.service('ember-error-logger.logger.internal-logger'),
+    internalLogger: computed(function() {
+        const owner = getOwner(this);
+        return owner.lookup('error-logger:internal-logger');
+    }),
 
     logInternalError(context, error) {
         this.get('internalLogger').log(context, error)

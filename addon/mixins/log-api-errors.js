@@ -6,7 +6,7 @@ const {
 } = Ember;
 
 export default Ember.Mixin.create({
-    errorManager: service('ember-error-logger/error-manager'),
+    errorManager: service('error-manager'),
 
     handleResponse(status, headers, payload, requestData) {
         let result = this._super(...arguments);
