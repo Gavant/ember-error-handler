@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import BaseListener from './base-listener';
-import ErrorDescriptor from '../error-descriptor';
+import BaseListener from 'ember-error-handler/listener/base-listener';
+import ErrorDescriptor from 'ember-error-handler/error-descriptor';
 
 const {
     get,

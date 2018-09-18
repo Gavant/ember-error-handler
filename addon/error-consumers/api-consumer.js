@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import BaseConsumer from './base-consumer';
+import BaseConsumer from 'ember-error-handler/consumer/base-consumer';
 
 const {
     assert,
