@@ -72,6 +72,9 @@ The api-consumer allows errors to be easily sent to a backend along with some ad
 
 **IMPORTANT** The api-consumer uses ember-ajax to make the AJAX request. If you have extended the service with a custom host, you may need to adjust the `ember-error-logger.consumers.api-consumer.endpoint` value accordingly.
 
+**IMPORTANT**
+If you need to modify the payload that is sent to the endpoint, you can override the api consumer and change the `stringifyData` method.
+
 ### Handling all API related errors
 
 Some API request errors may not be handled/logged by default (for example, if they are not triggered by a route transition). To log these errors, use the `ember-error-logger/mixins/log-api-errors` mixin in your ember-data adapter and/or ajax service. Additionally, this mixin will also stringify response payloads so that they can read in the error message (instead of just displaying as `[object Object]`).
