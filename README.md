@@ -7,7 +7,8 @@ Errors thrown are caught by listener bound to error producers (window, Ember ...
 Errors handled by listeners are passed to various consumers which could log the error, render error page or
 perform additional logic. Consumers and listeners are both fully extendable and customizable.
 
-## Installation
+Installation
+------------------------------------------------------------------------------
 
 * `ember install ember-error-logger`
 
