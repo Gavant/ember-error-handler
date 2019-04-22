@@ -1,12 +1,8 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
+import { get } from '@ember/object';
+import { inject as service } from '@ember/service';
 
-const {
-    get,
-    canInvoke,
-    inject: { service }
-} = Ember;
-
-export default Ember.Mixin.create({
+export default Mixin.create({
     errorManager: service('error-manager'),
 
     handleResponse(status, headers, payload, requestData) {
@@ -28,12 +24,9 @@ export default Ember.Mixin.create({
             payload = JSON.stringify(payload);
         }
 
-        if(canInvoke(this, 'generatedDetailedMessage')) {
+        if(typeof this.generatedDetailedMessage === 'function') {
             //ember-data
             return this.generatedDetailedMessage(status, headers, payload, requestData);
-        } else if(canInvoke(this, 'generateDetailedMessage')) {
-            //ember-ajax
-            return this.generateDetailedMessage(status, headers, payload, requestData);
         } else {
             return error.message;
         }

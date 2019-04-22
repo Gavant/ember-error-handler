@@ -1,7 +1,9 @@
-import Ember from 'ember';
 import {moduleForComponent, test} from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-const {Component, RSVP, computed} = Ember;
+import Component from '@ember/component';
+import RSVP from 'rsvp';
+import { computed } from '@ember/object';
+import { getOwner, setOwner } from '@ember/application';
 
 const wait = (timeout) => new RSVP.Promise((resolve) => setTimeout(resolve, timeout));
 
@@ -27,7 +29,7 @@ const renderFailing = (context) => {
 
 const renderSuccess = (context) => {
 
-    const owner = Ember.getOwner(context);
+    const owner = getOwner(context);
     const component = Component.create({
         layout: hbs`<div class='is-rendered'>RENDERED :)</div>`,
         renderer: owner.lookup('renderer:-dom'),
@@ -37,7 +39,7 @@ const renderSuccess = (context) => {
         }
 
     });
-    Ember.setOwner(component, owner);
+    setOwner(component, owner);
 
     component.append();
 };

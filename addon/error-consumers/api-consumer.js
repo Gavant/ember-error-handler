@@ -1,13 +1,9 @@
-import Ember from 'ember';
 import BaseConsumer from './base-consumer';
-
-const {
-    assert,
-    getOwner,
-    get,
-    isEmpty,
-    computed: { alias }
-} = Ember;
+import { alias } from '@ember/object/computed';
+import { assert } from '@ember/debug';
+import { getOwner } from '@ember/application';
+import { get } from '@ember/object';
+import { isEmpty } from '@ember/utils';
 
 export default BaseConsumer.extend({
     endpoint: alias('config.consumers.api-consumer.endpoint'),

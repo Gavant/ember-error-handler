@@ -1,18 +1,14 @@
-import Ember from 'ember';
+import { get, computed } from '@ember/object';
+import { isNone } from '@ember/utils';
+import { getOwner } from '@ember/application';
+import Service from '@ember/service';
 import {EmberErrorLoggerError} from '../errors';
 import BaseConsumer from '../error-consumers/base-consumer';
 import BaseListener from '../error-listeners/base-listener';
 import ErrorDescriptor from '../error-descriptor';
 import {ConfigMixin, InternalErrorManagmentMixin} from '../-tools';
 
-const {
-    get,
-    computed,
-    getOwner,
-    isNone
-} = Ember;
-
-export default Ember.Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
+export default Service.extend(ConfigMixin, InternalErrorManagmentMixin, {
     consumed: computed(() => []),
 
     enabled: computed('environment', function () {

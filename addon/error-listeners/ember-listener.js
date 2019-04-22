@@ -1,12 +1,8 @@
-import Ember from 'ember';
 import BaseListener from './base-listener';
 import ErrorDescriptor from '../error-descriptor';
-
-const {
-    get,
-    getOwner,
-    computed
-} = Ember;
+import { get, computed } from '@ember/object';
+import { getOwner } from '@ember/application';
+import RSVP from 'rsvp';
 
 export default BaseListener.extend({
     init() {
@@ -36,25 +32,6 @@ export default BaseListener.extend({
         const owner = getOwner(this);
         const listener = this;
 
-        if(get(config, 'actions')) {
-            //Capturing errors within action events
-            Ember.ActionHandler.reopen({
-                send: function (actionName) {
-                    try {
-                        this._super.apply(this, arguments);
-                    } catch (error) {
-                        manager.consume(
-                            ErrorDescriptor.create({
-                                source: `ember-action:${actionName}`,
-                                listener: listener,
-                                error
-                            })
-                        );
-                    }
-                }
-            });
-        }
-
         if(get(config, 'transitions')) {
             //Capturing errors during transitions
             const ApplicationRoute = owner.lookup('route:application');
@@ -77,23 +54,10 @@ export default BaseListener.extend({
 
         if(get(config, 'rsvp')) {
             //Capturing RSVP errors
-            Ember.RSVP.onerror = function (error) {
+            RSVP.onerror = function (error) {
                 manager.consume(
                     ErrorDescriptor.create({
                         source: `ember-rsvp`,
-                        listener: listener,
-                        error
-                    })
-                );
-            };
-        }
-
-        if(get(config, 'ember')) {
-            //Capturing ember errors
-            Ember.onerror = function (error) {
-                manager.consume(
-                    ErrorDescriptor.create({
-                        source: `ember`,
                         listener: listener,
                         error
                     })

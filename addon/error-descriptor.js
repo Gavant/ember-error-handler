@@ -1,8 +1,8 @@
-import Ember from 'ember';
 import {extractName} from 'ember-types/classes';
-const {computed} = Ember;
+import EmberObject from '@ember/object';
+import { computed } from '@ember/object';
 
-export default Ember.Object.extend({
+export default EmberObject.extend({
 
     source: null,
 

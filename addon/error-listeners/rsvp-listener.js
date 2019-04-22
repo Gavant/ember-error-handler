@@ -1,7 +1,6 @@
-import Ember from 'ember';
 import BaseListener from './base-listener';
 import ErrorDescriptor from '../error-descriptor';
-const {RSVP} = Ember;
+import RSVP from 'rsvp';
 
 export default BaseListener.extend({
     listen(manager) {

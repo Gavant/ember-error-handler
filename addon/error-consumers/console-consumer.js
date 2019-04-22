@@ -1,7 +1,5 @@
-import Ember from 'ember';
 import BaseConsumer from './base-consumer';
-
-const { get } = Ember;
+import { get } from '@ember/object';
 
 export default BaseConsumer.extend({
     consume (descriptor) {

@@ -1,19 +1,22 @@
-/* jshint node:true */
-// var RSVP = require('rsvp');
-var generateChangelog = require('ember-cli-changelog/lib/tasks/release-with-changelog');
+/* eslint-disable node/no-unsupported-features, no-console */
+'use strict';
 
-// For details on each option run `ember help release`
+const { execSync } = require('child_process');
+/* eslint-disable node/no-unpublished-require */
+const generateChangelog = require('ember-cli-changelog/lib/tasks/release-with-changelog');
+
 module.exports = {
-  // local: true,
-  // remote: 'some_remote',
-  // annotation: "Release %@",
-  // message: "Bumped version to %@",
-  // manifest: [ 'package.json', 'bower.json', 'someconfig.json' ],
-  // publish: true,
-  // strategy: 'date',
-  // format: 'YYYY-MM-DD',
-  // timezone: 'America/Los_Angeles',
-
-  beforeCommit: generateChangelog
-
+    publish: true,
+    beforeCommit: generateChangelog,
+    afterPublish(project, versions) {
+        // Publish dummy app with docs to gh-pages
+        runCommand(`ember github-pages:commit --message "Released ${versions.next}"`);
+        runCommand('git push origin gh-pages:gh-pages');
+    }
 };
+
+function runCommand(command) {
+    console.log(`running: ${command}`);
+    const output = execSync(command, { encoding: 'utf8' });
+    console.log(output);
+}
