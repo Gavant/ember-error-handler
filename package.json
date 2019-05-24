@@ -1,5 +1,5 @@
 {
-  "name": "ember-error-logger",
+  "name": "@gavant/ember-error-logger",
   "version": "0.0.2",
   "description": "Ember addon for handling and logging uncaught application errors",
   "directories": {

@@ -9,7 +9,7 @@ perform additional logic. Consumers and listeners are both fully extendable and 
 
 ## Installation
 
-* `ember install ember-error-logger`
+* `ember install @gavant/ember-error-logger`
 
 then throw error somewhere in application and watch the console.
 
