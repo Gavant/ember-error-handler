@@ -1,1 +1,1 @@
-export {default} from 'ember-error-logger/mixins/log-api-errors';
+export {default} from '@gavant/ember-error-logger/mixins/log-api-errors';

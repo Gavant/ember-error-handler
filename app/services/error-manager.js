@@ -1,1 +1,1 @@
-export {default} from 'ember-error-logger/services/error-manager';
+export {default} from '@gavant/ember-error-logger/services/error-manager';

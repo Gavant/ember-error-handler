@@ -1,1 +1,1 @@
-export {default} from 'ember-error-logger/error-consumers/api-consumer';
+export {default} from '@gavant/ember-error-logger/error-consumers/api-consumer';

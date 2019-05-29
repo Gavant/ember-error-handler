@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-error-logger'
+  name: '@gavant/ember-error-logger'
 };

@@ -1,1 +1,1 @@
-export {default} from 'ember-error-logger/error-loggers/internal-logger';
+export {default} from '@gavant/ember-error-logger/error-loggers/internal-logger';
