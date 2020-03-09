@@ -1,4 +1,6 @@
-# ember-error-logger
+# DEPRECATED: ember-error-logger
+
+**This project has been deprecated. Please use [ember-error-tracker](https://github.com/kredde/ember-error-tracker) instead.**
 
 ember-error-logger enables the handling and logging of uncaught errors. Handled error can be logged to a backend endpoint or passed through custom logic. By default, the addon includes consumers for local and remote logging of errors.
 
